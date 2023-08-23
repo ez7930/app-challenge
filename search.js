@@ -5,7 +5,7 @@ function search_recipe() {
     let recipe = document.getElementsByClassName('recipe');
       
     for (i = 0; i < recipe.length; i++) { 
-        if (!recipe[i].getElementsByTagName('h1')[0].innerHTML.toLowerCase().includes(input)) {
+        if (!recipe[i].getElementsByTagName('a')[0].innerHTML.toLowerCase().includes(input)) {
             recipe[i].style.display="none";
         }
         else {
