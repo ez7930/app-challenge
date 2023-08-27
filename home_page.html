@@ -46,17 +46,41 @@
               <ul class="dropdown-menu">
                 <li>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="onion" id="onion" onclick="adjust_filter('onion')">
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Onion
                     </label>
                   </div>
                 </li>
                 <li>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="carrot" onclick = "adjust_filter('carrot')">
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Carrot
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="eggs" onclick = "adjust_filter('eggs')">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Eggs
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="milk" onclick = "adjust_filter('milk')">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Milk
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="rice" onclick = "adjust_filter('rice')">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Rice
                     </label>
                   </div>
                 </li>
@@ -95,7 +119,6 @@
           <ul>
             <li>milk</li>
             <li>eggs</li>
-            <li>chicken breast</li>
             <li>rice</li>
           </ul>
         </div>
@@ -104,31 +127,67 @@
           <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
             peas
           </a>
-          <p>
-            the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop
-          </p>
+          <h6>
+            Requires: 
+          </h6>
+          <ul>
+            <li>onion</li>
+            <li>eggs</li>
+          </ul>
         </div>
         <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
           <img src="pumpkin.jpg"  height = "200" alt="picture of pumpkin dish" style="float: right;">
           <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
             beans
           </a>
-          <p>
-            the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop the pmpkin chee woo gop
-          </p>
+          <h6>
+            Requires: 
+          </h6>
+          <ul>
+            <li>carrot</li>
+          </ul>
         </div>
         <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
           <img src="cauliflower.jpg"  class = "image" height = "200" alt="picture of cauliflower">
           <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
             cauliflower
           </a>
-          <p>
-            the flower mee woo pop  the flower mee woo pop  the flower mee woo pop  the flower mee woo pop  the flower mee woo pop  the flower mee woo pop  the flower mee woo pop  the flower mee woo pop 
-          </p>
+          <h6>
+            Requires: 
+          </h6>
+          <ul>
+            <li>carrot</li>
+            <li>onion</li>
+          </ul>
+        </div>
+        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
+          <img src="cauliflower.jpg"  class = "image" height = "200" alt="picture of cauliflower">
+          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
+            cauliflower
+          </a>
+          <h6>
+            Requires: 
+          </h6>
+          <ul>
+            <li>eggs</li>
+          </ul>
+        </div>
+        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
+          <img src="cauliflower.jpg"  class = "image" height = "200" alt="picture of cauliflower">
+          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
+            cauliflower
+          </a>
+          <h6>
+            Requires: 
+          </h6>
+          <ul>
+            <li>rice</li>
+          </ul>
         </div>
       </ul>
 
     <script src="search.js"> </script>
+    <script src="filter.js"> </script>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
