@@ -1,7 +1,7 @@
 
 function search_recipe() {
     let input = document.getElementById('searchbar').value;
-    input=input.toLowerCase();
+    input = input.toLowerCase();
     let recipe = document.getElementsByClassName('recipe');
       
     for (i = 0; i < recipe.length; i++) { 

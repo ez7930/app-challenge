@@ -1,202 +1,203 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    .image {
+      float: right;
+    }
+
+    @media screen and (max-width: 600px) {
       .image {
-        float: right;
+        float: left;
       }
-
-      @media screen and (max-width: 600px) {
-        .image{
-          float: left;
-        }
-      }
-    </style>
+    }
+  </style>
 
 
-    <title>Hello, world!</title>
-  </head>
-  <body style="background-color:khaki;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Ingredients
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="onion" id="onion" onclick="adjust_filter('onion')">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Onion
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="carrot" onclick = "adjust_filter('carrot')">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Carrot
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="eggs" onclick = "adjust_filter('eggs')">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Eggs
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="milk" onclick = "adjust_filter('milk')">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Milk
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="rice" onclick = "adjust_filter('rice')">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Rice
-                    </label>
-                  </div>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
-                  </div>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" id = "searchbar" type="search" placeholder="Search" aria-label="Search" onkeyup="search_recipe()">
-          </form>
-        </div>
+  <title>Hello, world!</title>
+</head>
+
+<body style="background-color:khaki;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Ingredients
+            </a>
+            <ul class="dropdown-menu">
+              <li class = "dropdown-item">
+                <input class="form-check-input" type="checkbox" value="onion" id="onion" onclick="adjust_filter('onion')" style="width: 2em">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Onion
+                </label>
+              </li>
+              <li class = "dropdown-item">
+                <input class="form-check-input" type="checkbox" value="" id="carrot" onclick="adjust_filter('carrot')" style="width: 2em">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Carrot
+                </label>
+              </li>
+              <li class = "dropdown-item">
+                <input class="form-check-input" type="checkbox" value="" id="eggs" onclick="adjust_filter('eggs')" style="width: 2em">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Eggs
+                </label>
+              </li>
+              <li class = "dropdown-item">
+                <input class="form-check-input" type="checkbox" value="" id="milk" onclick="adjust_filter('milk')" style="width: 2em">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Milk
+                </label>
+              </li>
+              <li class = "dropdown-item">
+                <input class="form-check-input" type="checkbox" value="" id="rice" onclick="adjust_filter('rice')" style="width: 2em">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Rice
+                </label>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li class = "dropdown-item">
+                <button type="button" class="btn btn-primary" onclick="reset_checkboxes()">Reset</button>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" id="searchbar" type="search" placeholder="Search" aria-label="Search"
+            onkeyup="search_recipe()">
+        </form>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-      </nav>
-      <ul class = "list-unstyled">
-        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
-          <img src="pumpkin.jpg" class = "image" height = "200" alt="picture of pumpkin dish">
-          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
-            pumpkin
-          </a>
-          <h6>
-            Requires: 
-          </h6>
-          <ul>
-            <li>milk</li>
-            <li>eggs</li>
-            <li>rice</li>
-          </ul>
-        </div>
-        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
-          <img src="pumpkin.jpg"  class = "image" height = "200" alt="picture of pumpkin dish">
-          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
-            peas
-          </a>
-          <h6>
-            Requires: 
-          </h6>
-          <ul>
-            <li>onion</li>
-            <li>eggs</li>
-          </ul>
-        </div>
-        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
-          <img src="pumpkin.jpg"  height = "200" alt="picture of pumpkin dish" style="float: right;">
-          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
-            beans
-          </a>
-          <h6>
-            Requires: 
-          </h6>
-          <ul>
-            <li>carrot</li>
-          </ul>
-        </div>
-        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
-          <img src="cauliflower.jpg"  class = "image" height = "200" alt="picture of cauliflower">
-          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
-            cauliflower
-          </a>
-          <h6>
-            Requires: 
-          </h6>
-          <ul>
-            <li>carrot</li>
-            <li>onion</li>
-          </ul>
-        </div>
-        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
-          <img src="cauliflower.jpg"  class = "image" height = "200" alt="picture of cauliflower">
-          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
-            cauliflower
-          </a>
-          <h6>
-            Requires: 
-          </h6>
-          <ul>
-            <li>eggs</li>
-          </ul>
-        </div>
-        <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
-          <img src="cauliflower.jpg"  class = "image" height = "200" alt="picture of cauliflower">
-          <a href = "recipes/cauliflower.html" style = "font-size: xx-large; color: black;">
-            cauliflower
-          </a>
-          <h6>
-            Requires: 
-          </h6>
-          <ul>
-            <li>rice</li>
-          </ul>
-        </div>
+  </nav>
+  <ul class="list-unstyled">
+    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto"
+      style="height: 300px;">
+      <img src="pumpkin.jpg" class="image" height="200" alt="picture of pumpkin dish">
+      <a href="recipes/cauliflower.html" style="font-size: xx-large; color: black;">
+        Weird Egg Rice Cake
+      </a>
+      <h6>
+        Requires:
+      </h6>
+      <ul>
+        <li>milk</li>
+        <li>eggs</li>
+        <li>rice</li>
       </ul>
+    </div>
+    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto"
+      style="height: 300px;">
+      <img src="pumpkin.jpg" class="image" height="200" alt="picture of pumpkin dish">
+      <a href="recipes/cauliflower.html" style="font-size: xx-large; color: black;">
+        Omelet
+      </a>
+      <h6>
+        Requires:
+      </h6>
+      <ul>
+        <li>onion</li>
+        <li>eggs</li>
+      </ul>
+    </div>
+    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto"
+      style="height: 300px;">
+      <img src="pumpkin.jpg" height="200" alt="picture of pumpkin dish" style="float: right;">
+      <a href="recipes/cauliflower.html" style="font-size: xx-large; color: black;">
+        Grilled Carrot
+      </a>
+      <h6>
+        Requires:
+      </h6>
+      <ul>
+        <li>carrot</li>
+      </ul>
+    </div>
+    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto"
+      style="height: 300px;">
+      <img src="cauliflower.jpg" class="image" height="200" alt="picture of cauliflower">
+      <a href="recipes/cauliflower.html" style="font-size: xx-large; color: black;">
+        Salad
+      </a>
+      <h6>
+        Requires:
+      </h6>
+      <ul>
+        <li>carrot</li>
+        <li>onion</li>
+      </ul>
+    </div>
+    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto"
+      style="height: 300px;">
+      <img src="cauliflower.jpg" class="image" height="200" alt="picture of cauliflower">
+      <a href="recipes/cauliflower.html" style="font-size: xx-large; color: black;">
+        Scrambled Eggs
+      </a>
+      <h6>
+        Requires:
+      </h6>
+      <ul>
+        <li>eggs</li>
+      </ul>
+    </div>
+    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto"
+      style="height: 300px;">
+      <img src="cauliflower.jpg" class="image" height="200" alt="picture of cauliflower">
+      <a href="recipes/cauliflower.html" style="font-size: xx-large; color: black;">
+        Rice Balls
+      </a>
+      <h6>
+        Requires:
+      </h6>
+      <ul>
+        <li>rice</li>
+      </ul>
+    </div>
+  </ul>
 
-    <script src="search.js"> </script>
-    <script src="filter.js"> </script>
-    <!-- Optional JavaScript; choose one of the two! -->
+  <script src="search.js"> </script>
+  <script src="ingredient-filter-dropdown.js"> </script>
+  <!-- Optional JavaScript; choose one of the two! -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     -->
-  </body>
+</body>
+
 </html>
