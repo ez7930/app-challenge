@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+  <ul class="list-unstyled">
+    {% for recipe in recipes %}
+    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
+      <img src= "{{url_for('static', filename = 'pumpkin.jpg')}}" class="image" height="200" alt="picture of pumpkin dish">
+      <a href="cauliflower" style="font-size: xx-large; color: black;">
+        {{ recipe.name }}
+      </a>
+      <h6>
+        Requires:
+      </h6>
+      <ul>
+        {% for ingredient in recipe.ingredients %}
+          <li>{{ ingredient }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </ul>
+{% endblock content %}
