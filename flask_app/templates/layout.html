@@ -25,7 +25,7 @@
   </style>
 
 
-  <title>Hello, world!</title>
+  <title>{{ title }}</title>
 </head>
 
 <body style="background-color:khaki;">
@@ -41,68 +41,18 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="home">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Ingredients
-            </a>
-            <ul class="dropdown-menu">
-              <li class = "dropdown-item">
-                <input class="form-check-input" type="checkbox" value="onion" id="onion" onclick="adjust_filter('onion')" style="width: 2em">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Onion
-                </label>
-              </li>
-              <li class = "dropdown-item">
-                <input class="form-check-input" type="checkbox" value="" id="carrot" onclick="adjust_filter('carrot')" style="width: 2em">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Carrot
-                </label>
-              </li>
-              <li class = "dropdown-item">
-                <input class="form-check-input" type="checkbox" value="" id="eggs" onclick="adjust_filter('eggs')" style="width: 2em">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Eggs
-                </label>
-              </li>
-              <li class = "dropdown-item">
-                <input class="form-check-input" type="checkbox" value="" id="milk" onclick="adjust_filter('milk')" style="width: 2em">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Milk
-                </label>
-              </li>
-              <li class = "dropdown-item">
-                <input class="form-check-input" type="checkbox" value="" id="rice" onclick="adjust_filter('rice')" style="width: 2em">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Rice
-                </label>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li class = "dropdown-item">
-                <button type="button" class="btn btn-primary" onclick="reset_checkboxes()">Reset</button>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" id="searchbar" type="search" placeholder="Search" aria-label="Search"
-            onkeyup="search_recipe()">
-        </form>
+        
       </div>
     </div>
   </nav>
 
   {% block content %}{% endblock %}
 
-  <script src="search.js"> </script>
-  <script src="ingredient-filter-dropdown.js"> </script>
+  <script src="{{url_for('static', filename = 'search.js')}}"> </script>
+  <script src="{{url_for('static', filename = 'ingredient-filter-dropdown.js')}}"> </script>
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->

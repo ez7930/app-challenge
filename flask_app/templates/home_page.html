@@ -1,9 +1,59 @@
 {% extends "layout.html" %}
 {% block content %}
+
+  <div class = "container">
+    <div class = "row justify-content-center">
+      <input class="form-control m-3 col" id="searchbar" type="search" placeholder="Search" aria-label="Search" onkeyup="search_recipe()" style = "width: 500px;">
+      <div class="dropdown m-3 col">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Filter Ingredients
+        </button>
+        <ul class="dropdown-menu">
+          <li class = "dropdown-item">
+            <input class="form-check-input" type="checkbox" value="onion" id="onion" onclick="adjust_filter('onion')" style="width: 2em">
+            <label class="form-check-label" for="flexCheckDefault">
+              Onion
+            </label>
+          </li>
+          <li class = "dropdown-item">
+            <input class="form-check-input" type="checkbox" value="" id="carrot" onclick="adjust_filter('carrot')" style="width: 2em">
+            <label class="form-check-label" for="flexCheckDefault">
+              Carrot
+            </label>
+          </li>
+          <li class = "dropdown-item">
+            <input class="form-check-input" type="checkbox" value="" id="eggs" onclick="adjust_filter('eggs')" style="width: 2em">
+            <label class="form-check-label" for="flexCheckDefault">
+              Eggs
+            </label>
+          </li>
+          <li class = "dropdown-item">
+            <input class="form-check-input" type="checkbox" value="" id="milk" onclick="adjust_filter('milk')" style="width: 2em">
+            <label class="form-check-label" for="flexCheckDefault">
+              Milk
+            </label>
+          </li>
+          <li class = "dropdown-item">
+            <input class="form-check-input" type="checkbox" value="" id="rice" onclick="adjust_filter('rice')" style="width: 2em">
+            <label class="form-check-label" for="flexCheckDefault">
+              Rice
+            </label>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li class = "dropdown-item">
+            <button type="button" class="btn btn-primary" onclick="reset_checkboxes()">Reset</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>
+
   <ul class="list-unstyled">
     {% for recipe in recipes %}
     <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto" style="height: 300px;">
-      <img src= "{{url_for('static', filename = 'pumpkin.jpg')}}" class="image" height="200" alt="picture of pumpkin dish">
+      <img src= "{{ url_for('static', filename = recipe.image) }}" class="image" height="200" alt="picture of pumpkin dish">
       <a href="cauliflower" style="font-size: xx-large; color: black;">
         {{ recipe.name }}
       </a>
