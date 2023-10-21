@@ -28,11 +28,12 @@ function filter_recipes() {
 
 function adjust_filter(filter) {
     if(document.getElementById(filter).checked == true) {
-        filters.push(filter);
+        //adds a filter to a list
+        filters.push(filter.toLowerCase());
         filter_recipes();
     }  
     else {
-        const index = filters.indexOf(filter);
+        const index = filters.indexOf(filter.toLowerCase());
         if (index > -1) { // only splice array when item is found
             filters.splice(index, 1); // 2nd parameter means remove one item only
         }
@@ -48,3 +49,4 @@ function reset_checkboxes() {
     filters.length = 0;
     filter_recipes();
 }
+ 

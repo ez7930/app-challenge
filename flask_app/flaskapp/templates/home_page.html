@@ -3,67 +3,194 @@
 
   <div class = "container">
     <div class = "row justify-content-center">
+      <!-- search bar -->
       <input class="form-control m-3 col" id="searchbar" type="search" placeholder="Search" aria-label="Search" onkeyup="search_recipe()" style = "width: 500px;">
-      <div class="dropdown m-3 col">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          Filter Ingredients
-        </button>
-        <ul class="dropdown-menu">
-          <li class = "dropdown-item">
-            <input class="form-check-input" type="checkbox" value="onion" id="onion" onclick="adjust_filter('onion')" style="width: 2em">
-            <label class="form-check-label" for="flexCheckDefault">
-              Onion
-            </label>
-          </li>
-          <li class = "dropdown-item">
-            <input class="form-check-input" type="checkbox" value="" id="carrot" onclick="adjust_filter('carrot')" style="width: 2em">
-            <label class="form-check-label" for="flexCheckDefault">
-              Carrot
-            </label>
-          </li>
-          <li class = "dropdown-item">
-            <input class="form-check-input" type="checkbox" value="" id="eggs" onclick="adjust_filter('eggs')" style="width: 2em">
-            <label class="form-check-label" for="flexCheckDefault">
-              Eggs
-            </label>
-          </li>
-          <li class = "dropdown-item">
-            <input class="form-check-input" type="checkbox" value="" id="milk" onclick="adjust_filter('milk')" style="width: 2em">
-            <label class="form-check-label" for="flexCheckDefault">
-              Milk
-            </label>
-          </li>
-          <li class = "dropdown-item">
-            <input class="form-check-input" type="checkbox" value="" id="rice" onclick="adjust_filter('rice')" style="width: 2em">
-            <label class="form-check-label" for="flexCheckDefault">
-              Rice
-            </label>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class = "dropdown-item">
-            <button type="button" class="btn btn-primary" onclick="reset_checkboxes()">Reset</button>
-          </li>
+      {% if current_user.is_authenticated %}
+        <!-- {% for ingr in saved_ingr %}
+          <script value="{{ ingr }}"> adjust_filter(value) </script>
+        {% endfor %} -->
+        <!-- saved ingredients filters -->
+        <div class="col m-3">
+          <!-- <button type="button" class="btn btn-primary" onclick="filter_saved_ingr({{ saved_ingr|safe }})">Apply Saved Ingredient Filters</button> -->
+          <button type="button" class="btn btn-secondary" onclick="reset_checkboxes()">Show All Recipes</button>
+        </div>
+      {% else %}
+        <!-- filters -->
+        <div class="dropdown m-3 col">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Filter Ingredients
+          </button>
+          <ul class="dropdown-menu">
+            <div style="column-count:2;">
+              <div>
+                <h2>Vegetables</h2>
+                <ul style = "display: inline-block; text-align: left;">
+                  {% for ingredient in filter_ingr.vegetables %}
+                    <li class = "dropdown-item">
+                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        {{ ingredient }}
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <hr style="display: block; width: 1px;">
+              <div>
+                <h2>Proteins</h2>
+                <ul style = "display: inline-block; text-align: left;">
+                  {% for ingredient in filter_ingr.proteins %}
+                    <li class = "dropdown-item">
+                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        {{ ingredient }}
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <hr style="display: block; width: 1px;">
+              <div>
+                <h2>Carbs</h2>
+                <ul style = "display: inline-block; text-align: left;">
+                  {% for ingredient in filter_ingr.carbs %}
+                    <li class = "dropdown-item">
+                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        {{ ingredient }}
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <hr style="display: block; width: 1px;">
+              <div>
+                <h2>Other</h2>
+                <ul style = "display: inline-block; text-align: left;">
+                  {% for ingredient in filter_ingr.other %}
+                    <li class = "dropdown-item">
+                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        {{ ingredient }}
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class = "dropdown-item">
+              <button type="button" class="btn btn-primary" onclick="reset_checkboxes()">Reset</button>
+            </li>
+          </ul>
+        </div>
+      {% endif %}
+      
+    </div>
+  </div>
+
+  <div class="container mx-auto">
+    <div class="row">
+      <div class="col-4">
+        <h2>Edit Available Ingredients:</h2>
+          <form action = "{{ url_for('profile')}}" method = "POST">
+            <span style="font-size: 24px;">Vegetables</span>
+            <hr>
+            {% for ingredient in filter_ingr.vegetables %}
+            <li class = "dropdown-item">
+                {% if ingredient in saved_ingr %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
+                {% else %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
+                {% endif %}
+                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
+            </li>
+            {% endfor %}
+            <span style="font-size: 24px;">Proteins</span>
+            <hr>
+            {% for ingredient in filter_ingr.proteins %}
+            <li class = "dropdown-item">
+                {% if ingredient in saved_ingr %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
+                {% else %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
+                {% endif %}
+                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
+            </li>
+            {% endfor %}
+            <span style="font-size: 24px;">Carbs</span>
+            <hr>
+            {% for ingredient in filter_ingr.carbs %}
+            <li class = "dropdown-item">
+                {% if ingredient in saved_ingr %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
+                {% else %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
+                {% endif %}
+                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
+            </li>
+            {% endfor %}
+            <span style="font-size: 24px;">Other</span>
+            <hr>
+            {% for ingredient in filter_ingr.other %}
+            <li class = "dropdown-item">
+                {% if ingredient in saved_ingr %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
+                {% else %}
+                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
+                {% endif %}
+                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
+            </li>
+            {% endfor %}
+            <div>
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </div>
+        </form>
+      </div>
+      <div class="col">
+        <ul class="list-unstyled col">
+          {% for recipe in recipes %}
+          <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto rounded-9" style="height: 300px; border-radius: 60px;">
+            <img src= "{{ recipe.image }}" class="image" height="200" alt="picture of pumpkin dish">
+            <a href="{{ url_for('recipe', recipe_id=recipe.id) }}" style="font-size: xx-large; color: black;">{{ recipe.name }}</a>
+
+            {% if current_user.is_authenticated %}
+              {% if recipe.id in favorited_recipes %}
+                <form action="{{ url_for('unfavorite_recipe', recipe_id=recipe.id) }}" method="POST">
+                  <input class="btn btn-secondary" type="submit" value="Unfavorite">
+                </form>
+              {% else %}
+                <form action="{{ url_for('favorite_recipe', recipe_id=recipe.id) }}" method="POST">
+                  <input class="btn btn-primary" type="submit" value="Favorite">
+                </form>
+              {% endif %}
+            {% endif %}
+
+            <h6>
+              Requires:
+            </h6>
+            <ul>
+              {% for ingredient in recipe.req_ingr.splitlines() %}
+                <li>{{ ingredient }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
         </ul>
       </div>
     </div>
   </div>
 
-  <ul class="list-unstyled">
-    {% for recipe in recipes %}
-    <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto rounded-9" style="height: 300px; border-radius: 60px;">
-      <img src= "{{ recipe.image }}" class="image" height="200" alt="picture of pumpkin dish">
-      <a href="{{ url_for('recipe', recipe_id=recipe.id) }}" style="font-size: xx-large; color: black;">{{ recipe.name }}</a> <i class="bi bi-bookmark"></i>
-      <h6>
-        Requires:
-      </h6>
-      <ul>
-        {% for ingredient in recipe.req_ingr.splitlines() %}
-          <li>{{ ingredient }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endfor %}
-  </ul>
+  <script src="{{url_for('static', filename = 'search.js')}}"> </script>
+  <script src="{{url_for('static', filename = 'ingredient-filter-dropdown.js')}}"> </script>
+  <script>
+    function filter_saved_ingr(input_filters) {
+      for(i=0; i<input_filters.length; i++) {
+        filters.push(input_filters[i].toLowerCase())
+      }
+      filter_recipes();
+    }
+  </script>
 {% endblock content %}

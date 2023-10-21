@@ -85,24 +85,7 @@
   {% endwith %}
   {% block content %}{% endblock %}
 
-  <script src="{{url_for('static', filename = 'search.js')}}"> </script>
-  <script src="{{url_for('static', filename = 'ingredient-filter-dropdown.js')}}"> </script>
-  <script>
-    // Favorite Button - Heart
-    $('.favme').click(function() {
-      $(this).toggleClass('active');
-    });
 
-    /* when a user clicks, toggle the 'is-animating' class */
-    $(".favme").on('click touchstart', function(){
-      $(this).toggleClass('is_animating');
-    });
-
-    /*when the animation is over, remove the class*/
-    $(".favme").on('animationend', function(){
-      $(this).toggleClass('is_animating');
-    });
-  </script>
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->

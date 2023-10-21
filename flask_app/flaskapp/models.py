@@ -10,6 +10,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique = True, nullable = False)
     password = db.Column(db.String(60), nullable = False)
     recipes = db.relationship('Recipe', backref = 'author', lazy = True)
+    favorites = db.Column(db.Text, nullable = False)
+    saved_ingr = db.Column(db.Text, nullable = False)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.username}')"

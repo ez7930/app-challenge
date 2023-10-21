@@ -1,17 +1,61 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Recipe name: {{ recipe.name }}</h1>
-    <p></p>
+    <jumbotron>
+      <div class="container-fill">
+          <center><img class = "mx-auto" width="300px" src="{{ recipe.image }}"></center>
+        </div>
+        <h1 style="color:red;text-align: center; text-shadow: 2px 2px 4px white; background-color: slategray;" >{{ recipe.name }}</h1>
+      </div>
+    </jumbotron>
+    <div style="text-align: center;">
+      <h3 style="color:red;"> {{ recipe.description }}</h2>
+        <hr style="color:black; height: 3px;">
+      <div style = "column-count: 2; column-gap: 10px;">
+        <h3>Cook Time</h3>
+        <h4>{{ recipe.cook_time }} minutes</h4>
+        <h3>Calories</h3>
+        <h4>{{ recipe.calories }}</h4>
+      </div>
+    </div>
+    <hr style="color:black; height: 3px;">
+    <div style="column-count:2; color: red; text-align:center;">
+      <div>
+        <h2>Required Ingredients</h2>
+        <ul style = "display: inline-block; text-align: left;">
+          {% for ingr in req_ingr %}
+            <li>{{ ingr }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h2>Additional Ingredients</h2>
+        <ul style = "display: inline-block; text-align: left;">
+          {% for ingr in ad_ingr %}
+            <li>{{ ingr }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="container" style="color: red; text-align: left;">
+      <div>
+        <h2>Instructions:</h2>
+        <p class="block-paragraph">
+{{ recipe.instructions }} </p>
+      </div>
+    </div>
+    <iframe width="420" height="315"src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+    </div>
+    <br>
     
     
 
     {% if recipe.author == current_user %}
         <div>
-            <a class="btn btn-secondary btn-sm m-1"  href = "{{ url_for('update_recipe', recipe_id=recipe_id )}}">Update</a>
+            <a class="btn btn-secondary btn-sm m-1"  href = "{{ url_for('update_recipe', recipe_id=recipe.id )}}">Update</a>
             <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
         </div>
     {% endif %}
-
+    
     <!-- Modal -->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
