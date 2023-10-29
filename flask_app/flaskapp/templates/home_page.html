@@ -5,192 +5,191 @@
     <div class = "row justify-content-center">
       <!-- search bar -->
       <input class="form-control m-3 col" id="searchbar" type="search" placeholder="Search" aria-label="Search" onkeyup="search_recipe()" style = "width: 500px;">
-      {% if current_user.is_authenticated %}
-        <!-- {% for ingr in saved_ingr %}
-          <script value="{{ ingr }}"> adjust_filter(value) </script>
-        {% endfor %} -->
-        <!-- saved ingredients filters -->
         <div class="col m-3">
-          <!-- <button type="button" class="btn btn-primary" onclick="filter_saved_ingr({{ saved_ingr|safe }})">Apply Saved Ingredient Filters</button> -->
-          <button type="button" class="btn btn-secondary" onclick="reset_checkboxes()">Show All Recipes</button>
+          <button type="button" class="btn btn-secondary m-2 inline-block" onclick="show_all()">Show All Recipes</button>
+          {% if current_user.is_authenticated %}
+          <button type="submit" class="btn btn-outline-info m-2 desktop" form="shopping-list">Generate Shopping List</button>
+          {% endif %}
         </div>
-      {% else %}
-        <!-- filters -->
-        <div class="dropdown m-3 col">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Filter Ingredients
-          </button>
-          <ul class="dropdown-menu">
-            <div style="column-count:2;">
-              <div>
-                <h2>Vegetables</h2>
-                <ul style = "display: inline-block; text-align: left;">
-                  {% for ingredient in filter_ingr.vegetables %}
-                    <li class = "dropdown-item">
-                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        {{ ingredient }}
-                      </label>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              <hr style="display: block; width: 1px;">
-              <div>
-                <h2>Proteins</h2>
-                <ul style = "display: inline-block; text-align: left;">
-                  {% for ingredient in filter_ingr.proteins %}
-                    <li class = "dropdown-item">
-                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        {{ ingredient }}
-                      </label>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              <hr style="display: block; width: 1px;">
-              <div>
-                <h2>Carbs</h2>
-                <ul style = "display: inline-block; text-align: left;">
-                  {% for ingredient in filter_ingr.carbs %}
-                    <li class = "dropdown-item">
-                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        {{ ingredient }}
-                      </label>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-              <hr style="display: block; width: 1px;">
-              <div>
-                <h2>Other</h2>
-                <ul style = "display: inline-block; text-align: left;">
-                  {% for ingredient in filter_ingr.other %}
-                    <li class = "dropdown-item">
-                      <input class="form-check-input" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" onclick="adjust_filter(value)" style="width: 2em">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        {{ ingredient }}
-                      </label>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class = "dropdown-item">
-              <button type="button" class="btn btn-primary" onclick="reset_checkboxes()">Reset</button>
-            </li>
-          </ul>
-        </div>
-      {% endif %}
-      
     </div>
   </div>
 
-  <div class="container mx-auto">
+
+  <div class="container-fluid mx-auto">
     <div class="row">
-      <div class="col-4">
-        <h2>Edit Available Ingredients:</h2>
-          <form action = "{{ url_for('profile')}}" method = "POST">
-            <span style="font-size: 24px;">Vegetables</span>
-            <hr>
-            {% for ingredient in filter_ingr.vegetables %}
-            <li class = "dropdown-item">
-                {% if ingredient in saved_ingr %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
-                {% else %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
-                {% endif %}
-                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
-            </li>
-            {% endfor %}
-            <span style="font-size: 24px;">Proteins</span>
-            <hr>
-            {% for ingredient in filter_ingr.proteins %}
-            <li class = "dropdown-item">
-                {% if ingredient in saved_ingr %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
-                {% else %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
-                {% endif %}
-                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
-            </li>
-            {% endfor %}
-            <span style="font-size: 24px;">Carbs</span>
-            <hr>
-            {% for ingredient in filter_ingr.carbs %}
-            <li class = "dropdown-item">
-                {% if ingredient in saved_ingr %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
-                {% else %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
-                {% endif %}
-                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
-            </li>
-            {% endfor %}
-            <span style="font-size: 24px;">Other</span>
-            <hr>
-            {% for ingredient in filter_ingr.other %}
-            <li class = "dropdown-item">
-                {% if ingredient in saved_ingr %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
-                {% else %}
-                    <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
-                {% endif %}
-                <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
-            </li>
-            {% endfor %}
-            <div>
-                <input type="submit" value="Submit" class="btn btn-primary">
-            </div>
+      <!-- Filters Column Desktop-->
+      <div class="col-3 outlined bg-white overflow-auto desktop" style="height: 1000px">
+        <h2 class="mt-3">My Ingredients:</h2>
+          {% if current_user.is_authenticated %}
+            <form action = "{{ url_for('update_saved_ingredients')}}" method = "POST">
+          {% endif %}
+              {% if current_user.is_authenticated %}
+                <div>
+                  <input type="submit" value="Save and Filter" class="btn btn-primary m-2">
+                </div>
+              {% else %}
+                <div>
+                  <input type="submit" value="Filter" class="btn btn-primary m-2" onclick="adjust_filters()">
+                </div>
+              {% endif %}
+              {% for category in filter_ingr %}
+                  <div class="accordion">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ category }}" aria-expanded="false" aria-controls="collapse-{{ category }}">
+                        {{ filter_ingr[category][0] }}
+                      </button>
+                    </h2>
+                  </div>
+                  <div id= "collapse-{{ category }}" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                      {% if category == 'herbs_spices' or category == 'common' %}
+                        <button class="btn btn-primary" type="button" onclick="checkAll('{{ category }}')" style="padding: .375rem .75rem;">Check All</button>
+                      {% endif %}
+                      <ul class="list-unstyled" id="{{ category }}">
+                        {% for ingredient in filter_ingr[category][1:] %}
+                        <li class = "dropdown-item">
+                            {% if ingredient in saved_ingr %}
+                                <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
+                            {% else %}
+                                <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
+                            {% endif %}
+                            <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                {% endfor %}
         </form>
       </div>
-      <div class="col">
-        <ul class="list-unstyled col">
-          {% for recipe in recipes %}
-          <div class="recipe container m-5 p-5 bg-success bg-gradient text-black overflow-auto mx-auto rounded-9" style="height: 300px; border-radius: 60px;">
-            <img src= "{{ recipe.image }}" class="image" height="200" alt="picture of pumpkin dish">
-            <a href="{{ url_for('recipe', recipe_id=recipe.id) }}" style="font-size: xx-large; color: black;">{{ recipe.name }}</a>
-
+      <!-- Filters Column Mobile-->
+      <div class="accordion mobile">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            My Ingredients
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            <h2 class="mt-3">My Ingredients:</h2>
             {% if current_user.is_authenticated %}
-              {% if recipe.id in favorited_recipes %}
-                <form action="{{ url_for('unfavorite_recipe', recipe_id=recipe.id) }}" method="POST">
-                  <input class="btn btn-secondary" type="submit" value="Unfavorite">
-                </form>
-              {% else %}
-                <form action="{{ url_for('favorite_recipe', recipe_id=recipe.id) }}" method="POST">
-                  <input class="btn btn-primary" type="submit" value="Favorite">
-                </form>
-              {% endif %}
+              <form action = "{{ url_for('update_saved_ingredients')}}" method = "POST">
             {% endif %}
-
-            <h6>
-              Requires:
-            </h6>
-            <ul>
-              {% for ingredient in recipe.req_ingr.splitlines() %}
-                <li>{{ ingredient }}</li>
-              {% endfor %}
-            </ul>
+                {% if current_user.is_authenticated %}
+                  <div>
+                    <input type="submit" value="Save and Filter" class="btn btn-primary m-2">
+                  </div>
+                {% else %}
+                  <div>
+                    <input type="submit" value="Filter" class="btn btn-primary m-2" onclick="adjust_filters()">
+                  </div>
+                {% endif %}
+                {% for category in filter_ingr %}
+                  <div class="accordion">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ category }}" aria-expanded="false" aria-controls="collapse-{{ category }}">
+                        {{ filter_ingr[category][0] }}
+                      </button>
+                    </h2>
+                  </div>
+                  <div id= "collapse-{{ category }}" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                      {% if category == 'herbs_spices' or category == 'common' %}
+                        <button class="btn btn-primary" type="button" onclick="checkAll('{{ category }}')" style="padding: .375rem .75rem;">Check All</button>
+                      {% endif %}
+                      {% for ingredient in filter_ingr[category][1:] %}
+                      <li class = "dropdown-item">
+                          {% if ingredient in saved_ingr %}
+                              <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em" checked>
+                          {% else %}
+                              <input class="form-check-input" name = "ingr_checkbox" type="checkbox" value="{{ ingredient }}" id="{{ ingredient }}" style="width: 2em">
+                          {% endif %}
+                          <label class="form-check-label" for="flexCheckDefault">{{ ingredient }}</label>
+                      </li>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </form>
           </div>
-          {% endfor %}
-        </ul>
+        </div>
+      </div>
+      <!-- Recipes Column -->
+      <div class="col" style="background-color: #f7f1b9;">
+        {% if current_user.is_authenticated %}
+        <form id="shopping-list" action="{{ url_for('download_shopping_list') }}" method="POST">
+        {% endif %}
+          <ul class="list-unstyled" style="display: flex; flex-direction: column;">
+            <!-- Recipe Container -->
+            {% for recipe in recipes %}
+            <div class="recipe container m-2 bg-white text-black overflow-auto mx-auto rounded-3 outlined" style="height: 300px; border-radius: 60px; max-width: 800px">
+              <div class="row">
+                <div class="col-sm">
+                  <img src= "{{ recipe.image }}" class="img-fluid rounded mt-5" alt="picture of pumpkin dish">
+                  <footer style="font-size: x-small">*Images are found online and do not represent what the recipe would look like. Image use is in accordance with content liscenses</footer>
+                </div>
+                <div class="col-sm">
+                  <div>
+                    <a href="{{ url_for('recipe', recipe_id=recipe.id) }}" style="font-size: xx-large; color: black;">{{ recipe.name }}</a>
+                  </div>
+                  {% if current_user.is_authenticated %}
+                    <input type="checkbox" class="form-check-input" name="shopping-list-checkbox" value="{{ recipe.id }}">
+                    <label class="form-check-label" for="myCheckbox">Add to Shopping List</label>
+                  {% endif %}
+                  <hr>
+                  <h6>
+                    Requires:
+                  </h6>
+                  
+                  <ul>
+                    {% for ingredient in recipe.req_ingr.splitlines() %}
+                      <li>{{ ingredient }}</li>
+                    {% endfor %}
+                  </ul>
+                  <hr>
+                  <div class="row"><h6 class="col" >Calories:&nbsp</h6><span class="col">{{ recipe.calories }}</span></div>
+                  <div class="row"><h6 class="col" >Cook Time:&nbsp</h6><span class="col">{{ recipe.cook_time }}&nbspminutes</span></div>
+                  <hr>
+                </div>
+                <!-- Where Missing Ingredients Go -->
+                <div id="placeholder-{{ recipe.id }}"></div>
+              </div>
+            </div>
+            {% endfor %}
+          </ul>
+        </form>
       </div>
     </div>
   </div>
 
   <script src="{{url_for('static', filename = 'search.js')}}"> </script>
   <script src="{{url_for('static', filename = 'ingredient-filter-dropdown.js')}}"> </script>
-  <script>
-    function filter_saved_ingr(input_filters) {
-      for(i=0; i<input_filters.length; i++) {
-        filters.push(input_filters[i].toLowerCase())
+  {% if current_user.is_authenticated %}
+    <script>
+      function filter_saved_ingr(input_filters) {
+        for(i=0; i<input_filters.length; i++) {
+          filters.push(input_filters[i].toLowerCase());
+        }
+        filter_recipes(true);
       }
-      filter_recipes();
+      filter_saved_ingr({{ saved_ingr|safe }});
+      show_missing_ingr();
+    </script>
+  {% endif %}
+  <script>
+    function checkAll(category) {
+      list = document.getElementById(category);
+      elements = list.querySelectorAll('li');
+
+      for(const element of elements) {
+        element.getElementsByTagName('input')[0].setAttribute('checked', 'true')
+        console.log("gra")
+      }
     }
+    document.addEventListener('animationend', function (recipe) {
+      if (recipe.animationName == 'fade-out') {
+          recipe.target.style.display = "none";
+      }
+    });
   </script>
 {% endblock content %}

@@ -1,52 +1,127 @@
 const filters = [];
 
-function filter_recipes() {
+function filter_recipes(isAuthenticated) {
     let recipes = document.getElementsByClassName('recipe');
+    
     if(filters.length > 0) {
         for (i = 0; i < recipes.length; i++) { 
+            let found = true;
             let currList = recipes[i].getElementsByTagName('ul')[0].getElementsByTagName('li');
 
-            //matches filter to each ingredient in a recipe
-            for(h = 0; h < currList.length; h++) {
-                if(filters.indexOf(currList[h].innerHTML.toLowerCase()) < 0) {
-                    //if it does not contain a filter it hides the recipe then moves onto the next one
-                    recipes[i].style.display = "none"; 
+            //Comparison algorithm
+            for(const ingr of currList) {
+                let bool = false
+                for(const filter of filters) {
+                    if(ingr.innerHTML.toLowerCase().includes(filter)) {
+                        bool = true;
+                        break;
+                    }
+                }
+                if(!bool) {
+                    found = false;
                     break;
                 }
-                else {
-                    recipes[i].style.display = "list-item";   
-                }
             }
+
+            if(found && !isAuthenticated) {
+                recipes[i].classList.remove("dissappear");
+                recipes[i].classList.add("appear")
+                recipes[i].style.display = "list-item";
+            }
+            else if(found && isAuthenticated) {
+                recipes[i].style.display = "list-item";
+            }
+            else {
+                recipes[i].classList.remove("appear");
+                recipes[i].classList.add("dissappear"); 
+            }
+
+            console.log(found);
         }
     }
     else {
         for (i = 0; i < recipes.length; i++) {
+            recipes[i].classList.remove("dissappear");
+            recipes[i].classList.add("appear");
             recipes[i].style.display = "list-item";
         }
     }
 }
 
-function adjust_filter(filter) {
-    if(document.getElementById(filter).checked == true) {
-        //adds a filter to a list
-        filters.push(filter.toLowerCase());
-        filter_recipes();
-    }  
-    else {
-        const index = filters.indexOf(filter.toLowerCase());
-        if (index > -1) { // only splice array when item is found
-            filters.splice(index, 1); // 2nd parameter means remove one item only
+function adjust_filters() {
+    filters.length = 0;
+    let curr_filters = document.getElementsByClassName("form-check-input");
+    for (i = 0; i < curr_filters.length; i++) {
+        if(curr_filters[i].checked == true) {
+            filters.push(curr_filters[i].value.toLowerCase());
         }
-        filter_recipes();
     }
+    show_missing_ingr();
+    filter_recipes(false);
 }
 
-function reset_checkboxes() {
-    let checkboxes = document.getElementsByClassName("form-check-input");
-    for(i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
+function show_all() {
+    let recipes = document.getElementsByClassName('recipe');
+    
+    //displays hidden recipes as well as their missing ingredients
+    for (i = 0; i < recipes.length; i++) {
+        if(recipes[i].style.display != "list-item") {
+            recipes[i].classList.remove("dissappear");
+            recipes[i].classList.add("appear");
+            recipes[i].style.display = "list-item";
+        }
     }
-    filters.length = 0;
-    filter_recipes();
+
+    show_missing_ingr();
+}
+
+function show_missing_ingr() {
+    let recipes = document.getElementsByClassName('recipe');
+
+    //displays hidden recipes as well as their missing ingredients
+    for (i = 0; i < recipes.length; i++) {
+        const missing_ingr = []
+        let currList = recipes[i].getElementsByTagName('ul')[0].getElementsByTagName('li');
+
+        //Comparison algorithm
+        for(const ingr of currList) {
+            let found = false;
+            for(const filter of filters) {
+                if(ingr.innerHTML.toLowerCase().includes(filter)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found) {
+                missing_ingr.push(ingr.innerHTML)
+            }
+        }
+
+        const div = document.createElement('div');
+        div.setAttribute('class', 'col m-3');
+        div.setAttribute('id', 'placeholder-' + (i+1));
+        //Creates a missing elements list in the html
+        
+        const h6 = document.createElement('h6');
+        h6.textContent = 'Missing Ingredients:'
+        const ul = document.createElement('ul');
+        for (const ingr of missing_ingr) {
+            const li = document.createElement('li');
+            li.textContent = ingr;
+            ul.appendChild(li);
+        }
+        if(missing_ingr.length == 0) {
+            const li = document.createElement('li');
+            li.textContent = "None!";
+            ul.appendChild(li);
+        }
+        div.setAttribute('style', 'color: #A9A9A9;');
+        div.appendChild(h6);
+        div.appendChild(ul); 
+        
+        const placeholder = document.getElementById("placeholder-" + (i+1));
+        placeholder.parentNode.replaceChild(div, placeholder);
+    }
 }
  

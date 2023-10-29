@@ -1,16 +1,14 @@
+body {
+	font-family: 'Lato', sans-serif;
+  }
+
+.bg-white {
+	background-color: #fffdf2!important;
+}
 .block-paragraph {
 	white-space: pre-wrap;
   }
-  
-.content-section {
-    background: #ffffff;
-    padding: 10px 20px;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 20px;
-  }
 
-  
 .flexbox {
 	display: flex;
 	height: 100%;
@@ -18,68 +16,144 @@
 	align-items: center;
 }
 
-.fav-btn {
-	display:flex;
-	height: 100%;
-	justify-content: center;
-	align-items: center;
+.outlined {
+	border: 1px solid #ccc;
+  }
+
+.inline-block {
+	display: inline-block;
+}
+
+/* Buttons */
+.accordion-button {
+	background-color: #fff0;
+}
+.btn {
+	padding: 0.7rem 1.15rem;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #d986d0;
+    border-color: #b173bf00;
+}
+.btn-danger:hover {
+    background-color: #a6469b;
+    border-color: #b173bf00;
+}
+.btn-danger:focus {
+    background-color: #a6469b;
+    border-color: #b173bf00;
+	box-shadow: 0 0 0 5px #a6469b62;
+}
+.btn-primay:active {
+    background-color: #a6469b;
+    border-color: #b173bf00;
+	box-shadow: 0 0 0 5px #a6469b62;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #69bfe7;
+    border-color: #0d6efd00;
+}
+.btn-primary:hover {
+    background-color: #2e87b0;
+    border-color: #b173bf00;
+}
+.btn-primay:focus {
+    background-color: #2e87b0;
+    border-color: #b173bf00;
+	box-shadow: 0 0 0 5px #2e87b065;
+}
+.btn-primay:active {
+    background-color: #2e87b0;
+    border-color: #b173bf00;
+	box-shadow: 0 0 0 5px #2e87b065;
 }
 
 
-@keyframes favme-anime {
-  0%   { 
-		opacity: 1;
-		font-size: ms(0);
-		-webkit-text-stroke-color: transparent;
-	}
-	25%	 { 
-		opacity:.6;
-		color: #FFF;
-		font-size: ms(-2);
-		-webkit-text-stroke-width: 1px;
-   	-webkit-text-stroke-color: #DC3232;
-	}
-	75%	 { 
-		opacity:.6;
-		color: #FFF;
-		font-size: ms(3);
-		-webkit-text-stroke-width: 1px;
-   	-webkit-text-stroke-color: #DC3232;
-	}
-  100% { 
-		opacity: 1;
-		font-size: ms(2);
-		-webkit-text-stroke-color: transparent;
-	}
+.btn-secondary {
+    color: #fff;
+    background-color: #ffa464;
+    border-color: #6c757d00;
+}
+.btn-secondary:hover {
+	background-color:#b55c1c;
+	border-color: #6c757d00;
+}
+.btn-secondary:focus {
+	background-color:#b55c1c;
+	border-color: #6c757d00;
+	box-shadow: 0 0 0 5px #b55c1c56;
+}
+.btn-primay:active {
+    background-color:#b55c1c;
+	border-color: #6c757d00;
+	box-shadow: 0 0 0 5px #b55c1c56;
 }
 
-@keyframes favme-hover {
+.recipe {
+	display: flex;
+}
+
+.mobile {
+	display: none;
+}
+
+.desktop {
+	display: inline-block;
+}
+
+@media screen and (max-width: 640px) {
+	.mobile {
+		display: block;
+	}
+	.desktop {
+		display: none;
+	}
+  }
+
+/* Animations */
+@keyframes fade-in {
 	from {
-		font-size: ms(3);
+		opacity: 0;
 	}
-	80% {
-		font-size: ms(2);
+	to {
+		opacity: 1;
+	}
+}
+  
+@keyframes fade-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
 	}
 }
 
-.favme {
-	display:block;
-	font-size: ms(2);
-	width: auto;
-	height: auto;
-	cursor: pointer;
-	box-shadow: none;
-	transition: all .2s ease;
-	color: #CBCDCE;
-	margin: 0;
-	
-	&.active {
-		color: #DC3232;
+@keyframes slide-in-left {
+	from {
+		transform: translateX(300px)
 	}
-	&:hover {
-		animation: favme-hover .3s infinite alternate;
+	to {
+		transform: translateX(0);
 	}
-	&.is_animating {
-		animation: favme-anime .3s;
+}
+
+@keyframes slide-out-right {
+	from {
+		transform: translateX(0)
 	}
+	to {
+		transform: translateX(300px);
+	}
+}
+
+.appear {
+	animation: fade-in 1s, slide-in-left 1s;
+}
+
+.dissappear {
+	animation: fade-out 0.5s, slide-out-right 0.5s;
 }

@@ -2,14 +2,36 @@
 {% block content %}
     <jumbotron>
       <div class="container-fill">
-          <center><img class = "mx-auto" width="300px" src="{{ recipe.image }}"></center>
-        </div>
-        <h1 style="color:red;text-align: center; text-shadow: 2px 2px 4px white; background-color: slategray;" >{{ recipe.name }}</h1>
+        <center>
+          <img class = "img-fluid w-50 desktop" src="{{ recipe.image }}">
+          <img class = "img-fluid w-100 mobile" src="{{ recipe.image }}">
+          <footer style="font-size:x-small">*Images are found online and do not represent what the recipe would look like. Image use is in accordance with content liscenses</footer>
+        </center>
+        <h1 style="color:rgb(0, 0, 0);text-align: center; text-shadow: 2px 2px 4px white; background-color: rgb(244, 243, 204);" >{{ recipe.name }}</h1>
+        <center>
+          <!-- Favorite Button -->
+          {% if current_user.is_authenticated %}
+            {% if recipe.id in favorited_recipes %}
+              <form action="{{ url_for('unfavorite_recipe', recipe_id=recipe.id) }}" method="POST" class="inline-block">
+                <input class="btn btn-secondary btn-sm" type="submit" value="Unfavorite">
+              </form>
+            {% else %}
+              <form action="{{ url_for('favorite_recipe', recipe_id=recipe.id) }}" method="POST" class="inline-block">
+                <input class="btn btn-primary btn-sm " type="submit" value="Favorite">
+              </form>
+            {% endif %}
+          {% endif %}
+    
+          {% if recipe.author == current_user %}
+              <a class="btn btn-secondary btn-sm m-1"  href = "{{ url_for('update_recipe', recipe_id=recipe.id )}}">Update</a>
+              <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+          {% endif %}
+        </center>
       </div>
     </jumbotron>
     <div style="text-align: center;">
-      <h3 style="color:red;"> {{ recipe.description }}</h2>
-        <hr style="color:black; height: 3px;">
+      <h3 style="color:rgb(0, 0, 0);"> {{ recipe.description }}</h2>
+      <hr style="color:black; height: 3px;">
       <div style = "column-count: 2; column-gap: 10px;">
         <h3>Cook Time</h3>
         <h4>{{ recipe.cook_time }} minutes</h4>
@@ -17,8 +39,8 @@
         <h4>{{ recipe.calories }}</h4>
       </div>
     </div>
-    <hr style="color:black; height: 3px;">
-    <div style="column-count:2; color: red; text-align:center;">
+    <hr style="color:rgb(0, 0, 0); height: 3px;">
+    <div style="column-count:2; color: rgb(0, 0, 0); text-align:center;">
       <div>
         <h2>Required Ingredients</h2>
         <ul style = "display: inline-block; text-align: left;">
@@ -28,7 +50,7 @@
         </ul>
       </div>
       <div>
-        <h2>Additional Ingredients</h2>
+        <h2>Optional Ingredients</h2>
         <ul style = "display: inline-block; text-align: left;">
           {% for ingr in ad_ingr %}
             <li>{{ ingr }}</li>
@@ -36,25 +58,15 @@
         </ul>
       </div>
     </div>
-    <div class="container" style="color: red; text-align: left;">
+    <div class="container" style="color: rgb(0, 0, 0); text-align: left;">
       <div>
         <h2>Instructions:</h2>
-        <p class="block-paragraph">
+        <p class="block-paragraph" id="instructions">
 {{ recipe.instructions }} </p>
       </div>
     </div>
-    <iframe width="420" height="315"src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-    </div>
-    <br>
-    
-    
-
-    {% if recipe.author == current_user %}
-        <div>
-            <a class="btn btn-secondary btn-sm m-1"  href = "{{ url_for('update_recipe', recipe_id=recipe.id )}}">Update</a>
-            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-        </div>
-    {% endif %}
+    <hr>
+    <center><footer><p>This Recipe Was Made By "{{recipe.author.username}}"</p></footer></center>
     
     <!-- Modal -->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -75,4 +87,12 @@
       </div>
     </div>
   </div>
+
+  <script src="{{ url_for('static', filename = 'insert-video.js') }}"></script>
+  <script>
+    insertVideo("Crack eggs", "hWPVhF24Ank", 1)
+    insertVideo("dice onions", "-wSa5Q332vo", 2)
+    insertVideo("onions", "-wSa5Q332vo", 2)
+    insertVideo("bell pepper", "UfE88qEM_F4", 3)
+  </script>
 {% endblock content %}

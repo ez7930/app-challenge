@@ -17,7 +17,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.name(class="form-control form-control-lg") }}
+                        {{ form.name(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
                 <!-- description -->
@@ -31,7 +31,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.description(class="form-control form-control-lg") }}
+                        {{ form.description(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
                 <!-- required ingredients -->
@@ -73,7 +73,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.cook_time(class="form-control form-control-lg") }}
+                        {{ form.cook_time(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
                 <!-- calories -->
@@ -87,7 +87,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.calories(class="form-control form-control-lg") }}
+                        {{ form.calories(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
                 <!-- instructions -->
@@ -115,7 +115,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.image(class="form-control form-control-lg") }}
+                        {{ form.image(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
             </fieldset>
