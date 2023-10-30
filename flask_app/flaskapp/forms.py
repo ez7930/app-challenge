@@ -30,7 +30,7 @@ class RecipeForm(FlaskForm):
     description = StringField('Short Description', validators = [DataRequired()])
 
     required_ingredients = TextAreaField('Required Ingredients  ***Seperate Line by Line. If Ingredients has More than One Word, Combine with Hyphens', validators = [DataRequired()])
-    additional_ingredients = TextAreaField('Optional Ingredients ***Seperate Line by Line. If Ingredients has More than One Word, Combine with Hyphens', validators = [DataRequired()])
+    additional_ingredients = TextAreaField('Optional Ingredients ***Seperate Line by Line. If Ingredients has More than One Word, Combine with Hyphens')
 
     cook_time = StringField('Cook Time in Minutes', validators = [DataRequired()])
     calories = StringField('Total Calories', validators = [DataRequired()])

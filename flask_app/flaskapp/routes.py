@@ -9,13 +9,13 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 ingredients_data = {
-    'fruits_vegetables': ['Fruits and Vegetables', 'Bell Pepper', 'Celery', 'Onion', 'Garlic', 'Carrot', 'Tomato', 'Broccoli', 'Black Bean', 'Lime', 'Avocado', 'Pickle', 'Radish', 'Sport Pepper', 'Banana', 'Lemon', 'Corn', 'Potato'],
-    'proteins': ['Proteins', 'Eggs', 'Chicken Breast', 'Chicken Thigh', 'Ground Beef', 'Bacon', 'Turkey', 'Steak', 'Ham'],
-    'carbs': ['Carbs', 'Sliced Bread', 'Noodle', 'Pasta', 'Tortilla', 'Bagel', 'Macaroni', 'Rice', 'Hotdog Bun'],
-    'dairy': ['Dairy', 'Butter', 'Milk', 'Shredded Cheese', 'Cheese Slices', 'Parmesan Block Cheese', 'Greek Yogurt', 'Fresh Mozzarella'],
+    'fruits_vegetables': ['Fruits and Vegetables', 'Bell Pepper', 'Celery', 'Onion', 'Garlic', 'Carrot', 'Tomato', 'Broccoli', 'Black Bean', 'Lime', 'Avocado', 'Pickle', 'Radish', 'Sport Pepper', 'Banana', 'Lemon', 'Corn', 'Potato', 'Lettuce', 'Berries'],
+    'proteins': ['Proteins', 'Eggs', 'Chicken Breast', 'Chicken Thigh', 'Ground Beef', 'Bacon', 'Turkey', 'Steak', 'Ham', 'Hot Dog'],
+    'carbs': ['Carbs', 'Bread', 'Noodle', 'Pasta', 'Tortilla', 'Bagel', 'Macaroni', 'Rice', 'Hotdog Bun', 'Instant Ramen'],
+    'dairy': ['Dairy', 'Butter', 'Milk', 'Shredded Cheese', 'Cheese Slice', 'Parmesan Block Cheese', 'Greek Yogurt', 'Fresh Mozzarella', 'Heavy Cream'],
     'other': ['Other', 'Flour', 'Oil', 'Chicken Broth', 'Granola', 'Cocoa Powder', 'Peanut Butter', 'Honey', 'Bread Crumb'],
-    'condiments': ['Condiments', 'Soy Sauce', 'Marinara Sauce', 'Mustard', 'Pickle Relish', 'Mayo', 'Balsamic Vinegar'],
-    'herbs_spices': ['Herbs and Spices', 'Fresh Basil', 'Dried Basil', 'Dried Thyme', 'Dried Oregano', 'Cumin', 'Paprika', 'Pepper Flakes', 'Ginger', 'Garlic Powder'],
+    'condiments': ['Condiments', 'Soy Sauce', 'Marinara Sauce', 'Mustard', 'Pickle Relish', 'Mayo', 'Balsamic Vinegar', 'Salsa'],
+    'herbs_spices': ['Herbs and Spices', 'Fresh Basil', 'Dried Basil', 'Dried Thyme', 'Dried Oregano', 'Cumin', 'Paprika', 'Pepper Flakes', 'Ginger', 'Garlic Powder', 'Onion Powder'],
     'common': ['Common Ingredients', 'Oil', 'Flour', 'Eggs', 'Milk', 'Butter']
 }
 
@@ -105,7 +105,8 @@ def new_recipe():
 
         for line in req_ingr_data.splitlines():
             words = line.split()
-            req_ingr += words.pop().replace("-", " ") + "\n"
+            if(words):
+                req_ingr += words.pop().replace("-", " ") + "\n"
             for word in words:
                 req_ingr_attributes += word + " "
             req_ingr_attributes += "\n"
