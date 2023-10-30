@@ -3,3 +3,4 @@ run: "pip install -r requirements.txt"
 then run: "python run.py"
 Then hover over the http link that pops up in a block of text and click on "Follow link"
 You should then be lead to the website
+(You may need to install python and pip)
