@@ -24,28 +24,40 @@ function filter_recipes(isAuthenticated) {
             }
 
             if(found && !isAuthenticated) {
-                recipes[i].classList.remove("dissappear");
-                recipes[i].classList.add("appear")
-                recipes[i].style.display = "list-item";
+                if(!recipes[i].classList.contains("showing")) {
+                    recipes[i].classList.remove("dissappear");
+                    recipes[i].classList.add("appear");
+                    recipes[i].classList.remove("hiding");
+                    recipes[i].classList.add("showing");
+                }
             }
             else if(found && isAuthenticated) {
-                recipes[i].style.display = "list-item";
+                if(!recipes[i].classList.contains("showing")) {
+                    recipes[i].classList.remove("hiding");
+                    recipes[i].classList.add("showing");
+                }
             }
             else {
-                recipes[i].classList.remove("appear");
-                recipes[i].classList.add("dissappear"); 
+                if(!recipes[i].classList.contains("hiding")) {
+                    recipes[i].classList.remove("appear");
+                    recipes[i].classList.add("dissappear"); 
+                    recipes[i].classList.remove("showing");
+                    recipes[i].classList.add("hiding");
+                }
             }
-
-            console.log(found);
         }
     }
     else {
         for (i = 0; i < recipes.length; i++) {
             recipes[i].classList.remove("dissappear");
             recipes[i].classList.add("appear");
-            recipes[i].style.display = "list-item";
+            recipes[i].classList.remove("hiding");
+            recipes[i].classList.add("showing");
+            // recipes[i].style.display = "list-item";
         }
     }
+
+    paginate(1);
 }
 
 function adjust_filters() {
@@ -68,11 +80,14 @@ function show_all() {
         if(recipes[i].style.display != "list-item") {
             recipes[i].classList.remove("dissappear");
             recipes[i].classList.add("appear");
-            recipes[i].style.display = "list-item";
+            recipes[i].classList.remove("hiding");
+            recipes[i].classList.add("showing");
+            // recipes[i].style.display = "list-item";
         }
     }
 
     show_missing_ingr();
+    paginate(1);
 }
 
 function show_missing_ingr() {
@@ -113,10 +128,11 @@ function show_missing_ingr() {
         }
         if(missing_ingr.length == 0) {
             const li = document.createElement('li');
+            li.setAttribute('style', 'color: #c4c2c2')
             li.textContent = "None!";
             ul.appendChild(li);
         }
-        div.setAttribute('style', 'color: #A9A9A9;');
+        div.setAttribute('style', 'color: #636161;');
         div.appendChild(h6);
         div.appendChild(ul); 
         

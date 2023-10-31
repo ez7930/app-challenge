@@ -7,16 +7,17 @@ from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+import math
 
 ingredients_data = {
-    'fruits_vegetables': ['Fruits and Vegetables', 'Bell Pepper', 'Celery', 'Onion', 'Garlic', 'Carrot', 'Tomato', 'Broccoli', 'Black Bean', 'Lime', 'Avocado', 'Pickle', 'Radish', 'Sport Pepper', 'Banana', 'Lemon', 'Corn', 'Potato', 'Lettuce', 'Berries'],
-    'proteins': ['Proteins', 'Eggs', 'Chicken Breast', 'Chicken Thigh', 'Ground Beef', 'Bacon', 'Turkey', 'Steak', 'Ham', 'Hot Dog'],
+    'common': ['Common Ingredients', 'Oil', 'Flour', 'Egg', 'Milk', 'Butter'],
+    'fruits_vegetables': ['Fruits and Vegetables', 'Bell Pepper', 'Celery', 'Onion', 'Garlic', 'Carrot', 'Tomato', 'Broccoli', 'Beans', 'Lime', 'Avocado', 'Pickle', 'Radish', 'Sport Pepper', 'Banana', 'Lemon', 'Corn', 'Potato', 'Lettuce', 'Berries', 'Mushroom'],
+    'proteins': ['Proteins', 'Chicken Breast', 'Chicken Thigh', 'Ground Beef', 'Bacon', 'Turkey', 'Steak', 'Ham', 'Hot Dog', 'Canned Tuna'],
     'carbs': ['Carbs', 'Bread', 'Noodle', 'Pasta', 'Tortilla', 'Bagel', 'Macaroni', 'Rice', 'Hotdog Bun', 'Instant Ramen'],
-    'dairy': ['Dairy', 'Butter', 'Milk', 'Shredded Cheese', 'Cheese Slice', 'Parmesan Block Cheese', 'Greek Yogurt', 'Fresh Mozzarella', 'Heavy Cream'],
-    'other': ['Other', 'Flour', 'Oil', 'Chicken Broth', 'Granola', 'Cocoa Powder', 'Peanut Butter', 'Honey', 'Bread Crumb'],
-    'condiments': ['Condiments', 'Soy Sauce', 'Marinara Sauce', 'Mustard', 'Pickle Relish', 'Mayo', 'Balsamic Vinegar', 'Salsa'],
-    'herbs_spices': ['Herbs and Spices', 'Fresh Basil', 'Dried Basil', 'Dried Thyme', 'Dried Oregano', 'Cumin', 'Paprika', 'Pepper Flakes', 'Ginger', 'Garlic Powder', 'Onion Powder'],
-    'common': ['Common Ingredients', 'Oil', 'Flour', 'Eggs', 'Milk', 'Butter']
+    'dairy': ['Dairy', 'Shredded Cheese', 'Cheese Slice', 'Parmesan Block Cheese', 'Greek Yogurt', 'Fresh Mozzarella', 'Heavy Cream'],
+    'other': ['Other', 'Chicken Broth', 'Granola', 'Cocoa Powder', 'Peanut Butter', 'Honey', 'Bread Crumb', 'Raisin', 'Nut', 'Wine'],
+    'condiments': ['Condiments', 'Soy Sauce', 'Marinara Sauce', 'Mustard', 'Relish', 'Mayo', 'Balsamic Vinegar', 'Salsa', 'Ketchup', 'Tomato Paste'],
+    'herbs_spices': ['Herbs and Spices', 'Fresh Basil', 'Dried Basil', 'Dried Thyme', 'Dried Oregano', 'Cumin', 'Paprika', 'Pepper Flakes', 'Ginger', 'Garlic Powder', 'Onion Powder', 'Ground Cinnamon', 'Vanilla Extract', 'Brown Sugar']
 }
 
 with app.app_context():
@@ -34,6 +35,7 @@ def home():
         for ingr in current_user.saved_ingr.splitlines():
             saved_ingr_li.append(ingr)
 
+    page_count = math.floor(Recipe.query.count()/10)
     return render_template('home_page.html', recipes = recipes, title = 'Home', 
                            filter_ingr = ingredients_data, saved_ingr=saved_ingr_li)
 
@@ -308,11 +310,15 @@ def generate_pdf_file(input):
     # Create a PDF document
     p.drawString(100, 750, "Shopping List")
  
-    y = 730
+    y = 700
 
     for line in input.splitlines():
         p.drawString(100, y, line)
         y -= 20
+        if y<50:
+            y = 700
+            p.showPage()
+            p.setFont('Courier-Oblique', 11)
  
     p.showPage()
     p.save()

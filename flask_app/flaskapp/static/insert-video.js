@@ -5,7 +5,13 @@ function insertVideo(search,videoId,uniqueId) {
   //finds occurrences
   const occurrence = instructions.innerText.match(search);
   instructions.innerHTML = instructions.innerHTML.replace(occurrence, `<span class="highlight" style="color: #2596be; text-decoration: underline;" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#tipModal${uniqueId}">${occurrence}</span>`);
-  
+  if(occurrence == null) {
+    const lowercaseInstructions = instructions.innerText.toLowerCase();
+    const lowercaseOccurrence = lowercaseInstructions.match(search.toLowerCase());
+    instructions.innerHTML = instructions.innerHTML.replace(lowercaseOccurrence, `<span class="highlight" style="color: #2596be; text-decoration: underline;" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#tipModal${uniqueId}">${lowercaseOccurrence}</span>`);
+  }
+
+
   const modalDiv = document.createElement("div");
   modalDiv.innerHTML = `
     <div class="modal fade" id="tipModal${uniqueId}" role="dialog" tabindex="-1" aria-labelledby="tipModalLabel" aria-hidden="true">

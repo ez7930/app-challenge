@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-
   <div class = "container">
     <div class = "row justify-content-center">
       <!-- search bar -->
@@ -18,7 +17,9 @@
   <div class="container-fluid mx-auto">
     <div class="row">
       <!-- Filters Column Desktop-->
-      <div class="col-3 outlined bg-white overflow-auto desktop" style="height: 1000px">
+
+      <div class="col-4 outlined bg-white overflow-auto desktop" style="height: 800px">
+
         <h2 class="mt-3">My Ingredients:</h2>
           {% if current_user.is_authenticated %}
             <form action = "{{ url_for('update_saved_ingredients')}}" method = "POST">
@@ -35,16 +36,16 @@
               {% for category in filter_ingr %}
                   <div class="accordion">
                     <h2 class="accordion-header">
-                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ category }}" aria-expanded="false" aria-controls="collapse-{{ category }}">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ category }}" aria-expanded="false" aria-controls="collapse-{{ category }}">
                         {{ filter_ingr[category][0] }}
                       </button>
                     </h2>
                   </div>
-                  <div id= "collapse-{{ category }}" class="accordion-collapse collapse show">
+                  <div id= "collapse-{{ category }}" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                      {% if category == 'herbs_spices' or category == 'common' %}
-                        <button class="btn btn-primary" type="button" onclick="checkAll('{{ category }}')" style="padding: .375rem .75rem;">Check All</button>
-                      {% endif %}
+                      
+                      <button class="btn btn-primary" type="button" onclick="checkAll('{{ category }}')" style="padding: .375rem .75rem;">Check All</button>
+                     
                       <ul class="list-unstyled" id="{{ category }}">
                         {% for ingredient in filter_ingr[category][1:] %}
                         <li class = "dropdown-item">
@@ -61,12 +62,13 @@
                   </div>
                 {% endfor %}
         </form>
+
       </div>
       <!-- Filters Column Mobile-->
       <div class="accordion mobile">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            My Ingredients
+            Filter Recipes
           </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse">
@@ -87,12 +89,12 @@
                 {% for category in filter_ingr %}
                   <div class="accordion">
                     <h2 class="accordion-header">
-                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ category }}" aria-expanded="false" aria-controls="collapse-{{ category }}">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ category }}" aria-expanded="false" aria-controls="collapse-{{ category }}">
                         {{ filter_ingr[category][0] }}
                       </button>
                     </h2>
                   </div>
-                  <div id= "collapse-{{ category }}" class="accordion-collapse collapse show">
+                  <div id= "collapse-{{ category }}" class="accordion-collapse collapse">
                     <div class="accordion-body">
                       {% if category == 'herbs_spices' or category == 'common' %}
                         <button class="btn btn-primary" type="button" onclick="checkAll('{{ category }}')" style="padding: .375rem .75rem;">Check All</button>
@@ -116,6 +118,13 @@
       </div>
       <!-- Recipes Column -->
       <div class="col" style="background-color: #f7f1b9;">
+        <!-- <div class="container mx-auto justify-content-center"> -->
+          <ul class="pagination mt-3">
+            <li class="page-item"><button class="btn btn-secondary me-2" type="button" onclick="paginate(pageNumber-1)">Previous</button></li>
+            <li class="page-item"><button class="btn btn-secondary" type="button" onclick="paginate(pageNumber+1)">Next</button></li>
+            <span class="m-2">Page <span id="pageNumber"></span> out of <span id="pageCount"></span></span>
+          </ul>
+        <!-- </div> -->
         {% if current_user.is_authenticated %}
         <form id="shopping-list" action="{{ url_for('download_shopping_list') }}" method="POST">
         {% endif %}
@@ -147,8 +156,8 @@
                     {% endfor %}
                   </ul>
                   <hr>
-                  <div class="row"><h6 class="col" >Calories:&nbsp</h6><span class="col">{{ recipe.calories }}</span></div>
-                  <div class="row"><h6 class="col" >Cook Time:&nbsp</h6><span class="col">{{ recipe.cook_time }}&nbspminutes</span></div>
+                  <div class="row"><h6 class="col" >Calories:&nbsp</h6><span class="col recipe-calories">{{ recipe.calories }}</span></div>
+                  <div class="row"><h6 class="col" >Cook Time:&nbsp</h6><span class="col recipe-cooktime">{{ recipe.cook_time }}&nbspminutes</span></div>
                   <hr>
                 </div>
                 <!-- Where Missing Ingredients Go -->
@@ -162,8 +171,71 @@
     </div>
   </div>
 
+  <script>
+    var pageNumber = 1;
+    function paginate(page) {
+        var pageCount = Math.floor((document.getElementsByClassName("showing").length-1)/6)+1;
+        if(page<=pageCount && page>=1) {
+            pageNumber=page;
+        }
+
+        //get all the showing recipes
+        let currentRecipes = document.getElementsByClassName("showing");
+
+        console.log(pageCount);
+        console.log(pageNumber);
+        //set current page number and the total pages in html
+        document.getElementById("pageNumber").innerHTML = pageNumber;
+        document.getElementById("pageCount").innerHTML = pageCount;
+
+        //remove past class tags
+        for(i=0;i<currentRecipes.length;i++) {
+          for(a=0; a<=pageCount; a++) {
+            if(currentRecipes[i].classList.contains("show-page-" + a)) {
+              currentRecipes[i].classList.remove("show-page-" + a);
+            }
+          }
+        }
+
+        for(i=pageNumber*6-6; i<pageNumber*6; i++) {
+            if(currentRecipes[i] == null) {
+                break;
+            }
+            
+
+            currentRecipes[i].style.display = "list-item";
+            currentRecipes[i].classList.add("show-page-"+pageNumber);
+        }
+        for(i=0; i < currentRecipes.length; i++) {
+            if(!currentRecipes[i].classList.contains("show-page-"+pageNumber)) {
+                currentRecipes[i].style.display = "none";
+            }
+        }
+        hiddenRecipes = document.getElementsByClassName("hiding");
+        for(i=0; i<hiddenRecipes.length; i++) {
+            hiddenRecipes[i].style.display = "none";
+        }
+        
+    }
+  </script>
   <script src="{{url_for('static', filename = 'search.js')}}"> </script>
   <script src="{{url_for('static', filename = 'ingredient-filter-dropdown.js')}}"> </script>
+  <script>
+    function checkAll(category) {
+      list = document.getElementById(category);
+      elements = list.querySelectorAll('li');
+
+      for(const element of elements) {
+        element.getElementsByTagName('input')[0].setAttribute('checked', 'true')
+      }
+    }
+    document.addEventListener('animationend', function (recipe) {
+      if (recipe.animationName == 'fade-out') {
+          recipe.target.style.display = "none";
+      }
+    });
+    show_all()
+  </script>
   {% if current_user.is_authenticated %}
     <script>
       function filter_saved_ingr(input_filters) {
@@ -176,20 +248,5 @@
       show_missing_ingr();
     </script>
   {% endif %}
-  <script>
-    function checkAll(category) {
-      list = document.getElementById(category);
-      elements = list.querySelectorAll('li');
-
-      for(const element of elements) {
-        element.getElementsByTagName('input')[0].setAttribute('checked', 'true')
-        console.log("gra")
-      }
-    }
-    document.addEventListener('animationend', function (recipe) {
-      if (recipe.animationName == 'fade-out') {
-          recipe.target.style.display = "none";
-      }
-    });
-  </script>
+  
 {% endblock content %}

@@ -40,8 +40,8 @@
       </div>
     </div>
     <hr style="color:rgb(0, 0, 0); height: 3px;">
-    <div style="column-count:2; color: rgb(0, 0, 0); text-align:center;">
-      <div>
+    <div class="row" style="color: rgb(0, 0, 0); text-align:center;">
+      <div class="col-sm">
         <h2>Required Ingredients</h2>
         <ul style = "display: inline-block; text-align: left;">
           {% for ingr in req_ingr %}
@@ -49,7 +49,7 @@
           {% endfor %}
         </ul>
       </div>
-      <div>
+      <div class="col-sm">
         <h2>Optional Ingredients</h2>
         <ul style = "display: inline-block; text-align: left;">
           {% for ingr in ad_ingr %}
@@ -89,10 +89,19 @@
   </div>
 
   <script src="{{ url_for('static', filename = 'insert-video.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'insert-text.js') }}"></script>
+
   <script>
-    insertVideo("Crack eggs", "hWPVhF24Ank", 1)
-    insertVideo("dice onions", "-wSa5Q332vo", 2)
-    insertVideo("onions", "-wSa5Q332vo", 2)
-    insertVideo("bell pepper", "UfE88qEM_F4", 3)
+    insertVideo("Egg", "hWPVhF24Ank", 1);
+    insertVideo("Onions", "-wSa5Q332vo", 2);
+    insertVideo("Bell pepper", "UfE88qEM_F4", 3);
+    insertVideo("Poach", "0sl3eMAXspE", 4);
+    insertText("Skillet", "Be sure to always remember turn off the grill. You can set a timer to reminder in case you forget", 5);
+    insertText("Rigatoni", "Rigatoni you want to cook for 12-15 minutes. Be sure to test the rigatoni throughout the time it's boiling to see if it's ready or not.", 6);
+    insertText("Sauté", "Sautéing or sauteing is a method of cooking that uses a relatively small amount of oil or fat in a shallow pan over relatively high heat.", 7);
+    insertText("Saute", "Sautéing or sauteing is a method of cooking that uses a relatively small amount of oil or fat in a shallow pan over relatively high heat.", 8)
+    insertVideo("Chicken is cooked", "LabVGd3tOnY", 9);
+    insertVideo("Avocado", "texyKNGt4iU", 10);
+
   </script>
 {% endblock content %}

@@ -12,8 +12,12 @@ function search_recipe() {
             recipe[i].classList.remove("dissappear");
             recipe[i].style.display="list-item";                 
         }
+        document.getElementsByClassName("pagination")[0].style.display = "none";
     }
     if(input == "") {
         filter_recipes(true);
+        document.getElementsByClassName("pagination")[0].style.display = "";
     }
+
+
 }
