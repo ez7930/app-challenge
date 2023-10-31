@@ -10,14 +10,14 @@ from reportlab.pdfbase.ttfonts import TTFont
 import math
 
 ingredients_data = {
-    'common': ['Common Ingredients', 'Oil', 'Flour', 'Egg', 'Milk', 'Butter'],
-    'fruits_vegetables': ['Fruits and Vegetables', 'Bell Pepper', 'Celery', 'Onion', 'Garlic', 'Carrot', 'Tomato', 'Broccoli', 'Beans', 'Lime', 'Avocado', 'Pickle', 'Radish', 'Sport Pepper', 'Banana', 'Lemon', 'Corn', 'Potato', 'Lettuce', 'Berries', 'Mushroom'],
-    'proteins': ['Proteins', 'Chicken Breast', 'Chicken Thigh', 'Ground Beef', 'Bacon', 'Turkey', 'Steak', 'Ham', 'Hot Dog', 'Canned Tuna'],
-    'carbs': ['Carbs', 'Bread', 'Noodle', 'Pasta', 'Tortilla', 'Bagel', 'Macaroni', 'Rice', 'Hotdog Bun', 'Instant Ramen'],
-    'dairy': ['Dairy', 'Shredded Cheese', 'Cheese Slice', 'Parmesan Block Cheese', 'Greek Yogurt', 'Fresh Mozzarella', 'Heavy Cream'],
-    'other': ['Other', 'Chicken Broth', 'Granola', 'Cocoa Powder', 'Peanut Butter', 'Honey', 'Bread Crumb', 'Raisin', 'Nut', 'Wine'],
-    'condiments': ['Condiments', 'Soy Sauce', 'Marinara Sauce', 'Mustard', 'Relish', 'Mayo', 'Balsamic Vinegar', 'Salsa', 'Ketchup', 'Tomato Paste'],
-    'herbs_spices': ['Herbs and Spices', 'Fresh Basil', 'Dried Basil', 'Dried Thyme', 'Dried Oregano', 'Cumin', 'Paprika', 'Pepper Flakes', 'Ginger', 'Garlic Powder', 'Onion Powder', 'Ground Cinnamon', 'Vanilla Extract', 'Brown Sugar']
+    'common': ['Common Ingredients', 'Butter', 'Egg', 'Flour', 'Milk', 'Oil'],
+    'fruits_vegetables': ['Fruits and Vegetables', 'Avocado', 'Banana', 'Beans', 'Bell Pepper', 'Berries', 'Broccoli', 'Carrot', 'Celery', 'Corn', 'Garlic', 'Lemon', 'Lettuce', 'Lime', 'Mushroom', 'Onion', 'Pickle', 'Potato', 'Radish', 'Sport Pepper', 'Tomato'],
+    'proteins': ['Proteins', 'Bacon', 'Canned Tuna', 'Chicken Breast', 'Chicken Thigh', 'Ground Beef', 'Ham', 'Hot Dog', 'Steak', 'Turkey'],
+    'carbs': ['Carbs', 'Bagel', 'Bread', 'Hotdog Bun', 'Instant Ramen', 'Macaroni', 'Noodle', 'Pasta', 'Rice', 'Tortilla'],
+    'dairy': ['Dairy', 'Cheese Slice', 'Fresh Mozzarella', 'Greek Yogurt', 'Heavy Cream', 'Parmesan Block Cheese', 'Shredded Cheese'],
+    'other': ['Other', 'Bread Crumb', 'Chicken Broth', 'Cocoa Powder', 'Granola', 'Honey', 'Nut', 'Peanut Butter', 'Raisin', 'Wine'],
+    'condiments': ['Condiments', 'Balsamic Vinegar', 'Ketchup', 'Marinara Sauce', 'Mayo', 'Mustard', 'Relish', 'Salsa', 'Soy Sauce', 'Tomato Paste'],
+    'herbs_spices': ['Herbs and Spices', 'Brown Sugar', 'Cumin', 'Dried Basil', 'Dried Oregano', 'Dried Thyme', 'Fresh Basil', 'Garlic Powder', 'Ginger', 'Ground Cinnamon', 'Onion Powder', 'Paprika', 'Pepper Flakes', 'Vanilla Extract']
 }
 
 with app.app_context():

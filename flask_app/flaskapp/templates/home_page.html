@@ -43,9 +43,9 @@
                   </div>
                   <div id= "collapse-{{ category }}" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                      
-                      <button class="btn btn-primary" type="button" onclick="checkAll('{{ category }}')" style="padding: .375rem .75rem;">Check All</button>
-                     
+                      {% if category == "common" or category == "herbs_spices" %}
+                        <button class="btn btn-primary" type="button" onclick="checkAll('{{ category }}')" style="padding: .375rem .75rem;">Check All</button>
+                      {% endif %}
                       <ul class="list-unstyled" id="{{ category }}">
                         {% for ingredient in filter_ingr[category][1:] %}
                         <li class = "dropdown-item">
@@ -134,7 +134,7 @@
             <div class="recipe container m-2 bg-white text-black overflow-auto mx-auto rounded-3 outlined" style="height: 300px; border-radius: 60px; max-width: 800px">
               <div class="row">
                 <div class="col-sm">
-                  <img src= "{{ recipe.image }}" class="img-fluid rounded mt-5" alt="picture of pumpkin dish">
+                  <img src= "{{ recipe.image }}" class="img-fluid rounded mt-5" alt="picture">
                   <footer style="font-size: x-small">*Images are found online and do not represent what the recipe would look like. Image use is in accordance with content liscenses</footer>
                 </div>
                 <div class="col-sm">
